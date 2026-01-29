@@ -1,177 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>coldd | Login</title>
+<meta charset="UTF-8">
+<title>coldd</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 :root {
-  --red: #b00000;
-  --red-glow: rgba(176, 0, 0, 0.7);
-  --bg: #070707;
+  --red:#b00000;
+  --glow:rgba(176,0,0,.75);
+  --dark:#050000;
 }
 
 * {
-  box-sizing: border-box;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  box-sizing:border-box;
+  font-family:Segoe UI,system-ui,sans-serif;
 }
 
 body {
-  margin: 0;
-  background: radial-gradient(circle at top, #1a0000, #050000 70%);
-  color: #fff;
-  height: 100vh;
-  overflow: hidden;
+  margin:0;
+  background:radial-gradient(circle at top,#1a0000,#050000 70%);
+  color:white;
+  height:100vh;
+  overflow:hidden;
 }
 
-/* ===== LOGIN CARD ===== */
+/* ===== NOTIFICATIONS ===== */
+#toast {
+  position:fixed;
+  bottom:30px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#120000;
+  border:1px solid var(--red);
+  box-shadow:0 0 25px var(--glow);
+  padding:14px 22px;
+  border-radius:14px;
+  opacity:0;
+  pointer-events:none;
+  transition:.4s;
+}
+
+/* ===== AUTH ===== */
 #auth {
-  height: 100vh;
-  display: grid;
-  place-items: center;
+  height:100vh;
+  display:grid;
+  place-items:center;
 }
 
 .card {
-  width: 360px;
-  padding: 35px;
-  background: rgba(10, 0, 0, 0.85);
-  border: 1px solid var(--red);
-  box-shadow: 0 0 40px var(--red-glow);
-  backdrop-filter: blur(10px);
-  animation: float 4s ease-in-out infinite;
+  width:380px;
+  padding:35px;
+  background:rgba(10,0,0,.85);
+  border-radius:22px;
+  border:1px solid var(--red);
+  box-shadow:0 0 45px var(--glow);
+  animation:float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform:translateY(-10px); }
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 15px;
-  width: 70px;
+  width:70px;
+  display:block;
+  margin:0 auto 15px;
 }
 
 h1 {
-  text-align: center;
-  letter-spacing: 4px;
-  margin-bottom: 25px;
+  text-align:center;
+  letter-spacing:4px;
 }
 
 input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  background: #0c0000;
-  border: 1px solid #400;
-  color: #fff;
-  outline: none;
-  transition: 0.3s;
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  background:#0b0000;
+  border:1px solid #400;
+  border-radius:14px;
+  color:white;
+  outline:none;
+  transition:.3s;
 }
 
 input:focus {
-  border-color: var(--red);
-  box-shadow: 0 0 12px var(--red-glow);
+  border-color:var(--red);
+  box-shadow:0 0 15px var(--glow);
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #500, #b00000);
-  border: none;
-  color: #fff;
-  font-weight: bold;
-  letter-spacing: 2px;
-  cursor: pointer;
-  transition: 0.3s;
+  width:100%;
+  margin-top:18px;
+  padding:14px;
+  background:linear-gradient(90deg,#500,#b00000);
+  border:none;
+  border-radius:16px;
+  color:white;
+  letter-spacing:2px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
 }
 
 button:hover {
-  box-shadow: 0 0 20px var(--red-glow);
-  transform: scale(1.03);
+  transform:scale(1.04);
+  box-shadow:0 0 25px var(--glow);
 }
 
 .switch {
-  margin-top: 15px;
-  text-align: center;
-  font-size: 13px;
-  opacity: 0.8;
-  cursor: pointer;
+  margin-top:18px;
+  text-align:center;
+  opacity:.75;
+  cursor:pointer;
 }
 
 /* ===== APP ===== */
-#app {
-  display: none;
-  height: 100vh;
-  background: linear-gradient(135deg, #200000, #050000);
-}
+#app { display:none; height:100vh; }
 
 header {
-  height: 60px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  padding: 0 20px;
-  background: rgba(0,0,0,0.6);
-  border-bottom: 1px solid var(--red);
-  box-shadow: 0 0 20px var(--red-glow);
+  height:64px;
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  align-items:center;
+  padding:0 22px;
+  background:rgba(0,0,0,.65);
+  border-bottom:1px solid var(--red);
+  box-shadow:0 0 22px var(--glow);
 }
 
-header img {
-  width: 38px;
-}
+header img { width:40px; }
 
 header h2 {
-  text-align: center;
-  letter-spacing: 4px;
+  text-align:center;
+  letter-spacing:4px;
 }
 
 .user {
-  position: relative;
-  cursor: pointer;
+  position:relative;
+  cursor:pointer;
 }
 
 .dropdown {
-  position: absolute;
-  right: 0;
-  top: 140%;
-  background: #0b0000;
-  border: 1px solid var(--red);
-  display: none;
-  min-width: 160px;
+  position:absolute;
+  right:0;
+  top:140%;
+  background:#0d0000;
+  border-radius:14px;
+  border:1px solid var(--red);
+  display:none;
+  overflow:hidden;
 }
 
 .dropdown div {
-  padding: 10px;
-  transition: 0.3s;
+  padding:12px 16px;
+  transition:.3s;
 }
 
 .dropdown div:hover {
-  background: #300000;
+  background:#300000;
 }
 
-.user:hover .dropdown {
-  display: block;
-}
+.user:hover .dropdown { display:block; }
 
-/* ===== CENTER ===== */
 .center {
-  height: calc(100vh - 60px);
-  display: grid;
-  place-items: center;
-  filter: blur(0.6px);
+  height:calc(100vh - 64px);
+  display:grid;
+  place-items:center;
 }
 
 .center h1 {
-  font-size: 36px;
-  animation: float 5s ease-in-out infinite;
-  text-shadow: 0 0 25px var(--red-glow);
+  font-size:38px;
+  animation:float 5s ease-in-out infinite;
+  text-shadow:0 0 30px var(--glow);
 }
 </style>
 </head>
 
 <body>
+
+<div id="toast"></div>
 
 <!-- AUTH -->
 <div id="auth">
@@ -179,11 +188,11 @@ header h2 {
     <img class="logo" src="https://cdn.discordapp.com/icons/1247414059909779578/99547a7b9b3f66a5b992a1d7db30e036.png?size=1024">
     <h1>COLDD</h1>
 
-    <input id="username" placeholder="Username">
-    <input id="password" type="password" placeholder="Password">
-    <button onclick="login()">LOGIN</button>
+    <input id="u" placeholder="Username">
+    <input id="p" type="password" placeholder="Password">
 
-    <div class="switch" onclick="signup()">Create an account</div>
+    <button onclick="login()">LOGIN</button>
+    <div class="switch" onclick="toggleSignup()">Create Account</div>
   </div>
 </div>
 
@@ -192,12 +201,11 @@ header h2 {
   <header>
     <img src="https://cdn.discordapp.com/icons/1247414059909779578/99547a7b9b3f66a5b992a1d7db30e036.png?size=1024">
     <h2>COLDD</h2>
-
     <div class="user">
-      Welcome, <span id="userName"></span> ::
+      Welcome, <span id="uname"></span> ::
       <div class="dropdown">
         <div onclick="logout()">Sign Out</div>
-        <div onclick="alert('User limit handled via JSON (max 3)')">Add User</div>
+        <div onclick="toggleSignup()">Add User</div>
       </div>
     </div>
   </header>
@@ -208,47 +216,54 @@ header h2 {
 </div>
 
 <script>
-let accounts = [];
+const toast = msg => {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.style.opacity = 1;
+  setTimeout(()=>t.style.opacity=0,2500);
+};
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
 
 fetch("accounts.json")
-  .then(r => r.json())
-  .then(d => accounts = d.users);
+  .then(r=>r.json())
+  .then(d=>{
+    if(!users.length){
+      users = d.users;
+      localStorage.setItem("users",JSON.stringify(users));
+    }
+  });
 
-function login() {
-  const u = username.value;
-  const p = password.value;
-
-  const user = accounts.find(a => a.username === u && a.password === p);
-  if (!user) return alert("Invalid login");
-
-  localStorage.setItem("session", u);
-  start(u);
+function login(){
+  const user = users.find(x=>x.username===u.value && x.password===p.value);
+  if(!user) return toast("Invalid credentials");
+  localStorage.setItem("session",user.username);
+  start(user.username);
 }
 
-function signup() {
-  if (accounts.length >= 3)
-    return alert("Max 3 users allowed");
-
-  const u = prompt("Username");
-  const p = prompt("Password");
-  if (!u || !p) return;
-
-  alert("Add this user manually to accounts.json");
+function toggleSignup(){
+  if(users.length>=3) return toast("User limit reached (3)");
+  const name = u.value;
+  const pass = p.value;
+  if(!name||!pass) return toast("Fill both fields");
+  users.push({username:name,password:pass});
+  localStorage.setItem("users",JSON.stringify(users));
+  toast("User added");
 }
 
-function start(name) {
-  auth.style.display = "none";
-  app.style.display = "block";
-  userName.textContent = name;
+function start(name){
+  auth.style.display="none";
+  app.style.display="block";
+  uname.textContent=name;
 }
 
-function logout() {
+function logout(){
   localStorage.removeItem("session");
   location.reload();
 }
 
-const saved = localStorage.getItem("session");
-if (saved) start(saved);
+const s = localStorage.getItem("session");
+if(s) start(s);
 </script>
 
 </body>
